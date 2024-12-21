@@ -32,6 +32,16 @@ class CustomerController {
             res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ result: "FAIL TO CREATE CUSTOMER" });
         }
     }
+
+    public async getAllByAge(req: Request, res: Response, next: any) {
+        try {
+            const customers = await customerControllerInstance.customerService.getAllByAge()
+            debug("CUSTOMER RESPONSE %o", customers);
+            res.status(httpStatus.OK).json(customers);
+        } catch (error: any) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ result: "FAIL TO GET CUSTOMERS BY AGE" });
+        }
+    }
 }
 
 const customerControllerInstance = new CustomerController();

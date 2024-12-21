@@ -1,4 +1,5 @@
 import Customer, { ICustomer } from "../entities/customer.entity";
+import customerMapperInstance from "../mappers/customerAge.mapper";
 
 var debug = require('debug')('periferia:customerService');
 
@@ -23,6 +24,17 @@ class CustomerService {
         } catch (error: any) {
             debug("FAIL TO CREATE CUSTOMER, ERROR:", error)
             throw new Error(error)
+        }
+    }
+
+    public async getAllByAge() {
+        try {
+            debug('GETING ALL CUSTOMERS BY AGE');
+            const customers =  await Customer.findAll();
+            return customerMapperInstance.map(customers)
+        } catch (error: any) {
+            debug("FAIL TO GET CUSTOMERS, ERROR:", error)
+            throw new Error(error);
         }
     }
 }
