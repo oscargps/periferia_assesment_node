@@ -12,6 +12,15 @@ class CustomerController {
         this.customerService = new CustomerService();
     }
 
+    public async getAllByName(req: Request, res: Response, next: any) {
+        try {
+            const customers = await customerControllerInstance.customerService.getAllCustomersByName()
+            debug("CUSTOMER RESPONSE %o", customers);
+            res.status(httpStatus.OK).json(customers);
+        } catch (error: any) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ result: "FAIL TO GET CUSTOMERS" });
+        }
+    }
 
     public async create(req: Request, res: Response, next: any) {
         const data = req.body as ICustomer

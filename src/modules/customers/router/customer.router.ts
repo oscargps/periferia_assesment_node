@@ -9,6 +9,7 @@ class CustomerRouter {
 
   private config() {
     this.router.post("/new", customerControllerInstance.create);
+    this.router.get("/all", customerControllerInstance.getAllByName);
   }
 }
 

@@ -5,6 +5,17 @@ var debug = require('debug')('periferia:customerService');
 
 class CustomerService {
 
+    public async getAllCustomersByName() {
+        try {
+            debug('GETING ALL CUSTOMERS');
+            return await Customer.findAll({
+                order:["full_name"]
+            });
+        } catch (error: any) {
+            debug("FAIL TO GET CUSTOMERS, ERROR:", error)
+            throw new Error(error);
+        }
+    }
 
     public async createCustomer(dataCustomer: ICustomer): Promise<any> {
         try {
