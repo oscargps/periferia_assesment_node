@@ -11,6 +11,7 @@ class CustomerRouter {
     this.router.post("/new", customerControllerInstance.create);
     this.router.get("/all", customerControllerInstance.getAllByName);
     this.router.get("/allByAge", customerControllerInstance.getAllByAge);
+    this.router.get("/ageAverageCustomers", customerControllerInstance.getAverageAge);
   }
 }
 
