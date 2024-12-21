@@ -2,6 +2,7 @@ import httpStatus from "http-status";
 import { Request, Response } from "express";
 import { ICustomer } from "../entities/customer.entity";
 import CustomerService from "../services/customer.service";
+import customerAgeAverageMapperInstance from "../mappers/CustomerAgeAverage.mapper";
 var debug = require('debug')('periferia:customerController');
 
 class CustomerController {
@@ -38,6 +39,16 @@ class CustomerController {
             const customers = await customerControllerInstance.customerService.getAllByAge()
             debug("CUSTOMER RESPONSE %o", customers);
             res.status(httpStatus.OK).json(customers);
+        } catch (error: any) {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ result: "FAIL TO GET CUSTOMERS BY AGE" });
+        }
+    }
+    public async getAverageAge(req: Request, res: Response, next: any) {
+        try {
+            const customers = await customerControllerInstance.customerService.getAllByAge()
+            debug("CUSTOMER RESPONSE %o", customers);
+            const averageAgeCustomers = customerAgeAverageMapperInstance.map(customers);
+            res.status(httpStatus.OK).json(averageAgeCustomers);
         } catch (error: any) {
             res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ result: "FAIL TO GET CUSTOMERS BY AGE" });
         }
