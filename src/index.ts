@@ -4,6 +4,7 @@ import healthRouter from './modules/core/router/health.router';
 
 var debug = require('debug')('periferia:launchServer');
 import cors from 'cors'
+import customerRouter from './modules/customers/router/customer.router';
 
 (async () => {
   try {
@@ -12,6 +13,7 @@ import cors from 'cors'
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.use(cors())
+    app.use('/api/customers/', customerRouter);
     app.use('/', healthRouter);
 
 
